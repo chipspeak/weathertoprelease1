@@ -1,0 +1,113 @@
+<table class="table is-bordered">
+  <tbody>
+    <tr class="content is-small">
+      <th class="content has-text-centered has-text-weight-bold is-medium is-black"></th>
+      <th class="content has-text-centered has-text-weight-bold is-medium is-black">Station</th>
+      <th class="content has-text-centered has-text-weight-bold is-medium is-black"></th>
+      <th class="content has-text-centered has-text-weight-bold is-medium is-black">Weather</th>
+      <th class="content has-text-centered has-text-weight-bold is-medium is-black"></th>
+      <th class="content has-text-centered has-text-weight-bold is-medium is-black">Temperature</th>
+      <th class="content has-text-centered has-text-weight-bold is-medium is-black"></th>
+      <th class="content has-text-centered has-text-weight-bold is-medium is-black">Wind</th>
+      <th class="content has-text-centered has-text-weight-bold is-medium is-black"></th>
+      <th class="content has-text-centered has-text-weight-bold is-medium is-black">Pressure</th>
+    </tr>
+    <tr>
+      <td class="content is-small is-black">
+        <div class="columns is-flex is-centered">
+          <figure class="image is-flex is-64x64">
+            <img src="/public/images/white/whitecompass.png">
+          </figure>
+        </div>
+      </td>
+      <td class="content has-text-centered is-small is-black">
+        ${_station.location}
+      </td>
+      <td class="content is-black">
+        <div class="columns is-flex is-centered">
+          <figure class="image is-flex is-64x64">
+            <img src="/public/images/white/whiteweather.png">
+          </figure>
+        </div>
+      </td>
+      <td class="content has-text-centered is-small is-black">
+        ${_station.listLatestReading().conditions()}
+      </td>
+      <td class="content is-black">
+        <div class="columns is-flex is-centered">
+          <figure class="image is-flex is-64x64">
+            <img src="/public/images/white/whitetemperature.png">
+          </figure>
+        </div>
+      </td>
+      <td class="content has-text-centered is-small is-black">
+        ${_station.listLatestReading().getTemp()} C
+        <br>
+        ${_station.listLatestReading().fahrenheit()} F
+      </td>
+      <td class="content is-black">
+        <div class="columns is-flex is-centered">
+          <figure class="image is-flex is-64x64">
+            <img src="/public/images/white/whitewind.png">
+          </figure>
+        </div>
+      </td>
+      <td class="content has-text-centered is-small is-black">
+        ${_station.listLatestReading().beauforts()} bft
+        <br>
+        ${_station.listLatestReading().beaufortLabel()}
+        <br>
+        Feels like ${_station.listLatestReading().windChillReading()}
+        <br>
+        ${_station.listLatestReading().windDirectionReading()}
+      </td>
+      <td class="content is-small is-black">
+        <div class="columns is-flex is-centered">
+          <figure class="image is-64x64">
+            <img src="/public/images/white/whitepressure.png">
+          </figure>
+        </div>
+      </td>
+      <td class="content has-text-centered is-small is-black">
+        ${_station.listLatestReading().getPressure()} atm
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table class="table is-bordered">
+  <tbody>
+    <tr>
+      <th>Code</th>
+      <th>Temperature</th>
+      <th>Wind Speed</th>
+      <th>Wind Direction</th>
+      <th>Pressure</th>
+      <th></th>
+    </tr>
+    #{list items:_station.readings, as:'reading'}
+    <tr>
+      <td>
+        ${reading.getCode()}
+      </td>
+      <td>
+        ${reading.getTemp()} C
+       <br>
+        ${reading.fahrenheit()} F
+      </td>
+      <td>
+        ${reading.getWindSpeed()} km/hr
+      </td>
+      <td>
+        ${reading.getWindDirection()} degrees
+      </td>
+      <td>
+        ${reading.getPressure()} atm
+      </td>
+      <td>
+      <a href="/stations/${_station.id}/deleteReading/${reading.id}" class="button is-center is-danger">Delete</a>
+      </td>
+    </tr>
+    #{/list}
+  </tbody>
+</table>
